@@ -27,6 +27,13 @@ class News extends Resource
     public static $title = 'title';
 
     /**
+     * The logical group associated with the resource.
+     *
+     * @var string
+     */
+    public static $group = 'News';
+
+    /**
      * The columns that should be searched.
      *
      * @var array
