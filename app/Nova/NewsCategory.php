@@ -44,7 +44,8 @@ class NewsCategory extends Resource
 
             Text::make('Заголовок', 'title')
                 ->sortable()
-                ->rules('required', 'max:255'),
+                ->translatable()
+                ->rulesFor('en', ['required']),
         ];
     }
 

@@ -16,10 +16,10 @@ class TextAndTitleLayout extends Layout
     {
         return [
             Text::make('Title', 'title')
-                ->rules(['required']),
+                ->translatable(),
 
             Markdown::make('Text', 'text')
-                ->rules(['required'])
+                ->translatable()
         ];
     }
 }

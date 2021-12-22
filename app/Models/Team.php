@@ -8,10 +8,20 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use Spatie\Translatable\HasTranslations;
 
 class Team extends Model implements HasMedia
 {
-    use HasFactory, InteractsWithMedia;
+    use HasFactory, InteractsWithMedia, HasTranslations;
+
+    public $translatable = ['name', 'surname', 'position', 'position_description'];
+
+    protected $casts = [
+        'name' => 'json',
+        'surname' => 'json',
+        'position' => 'json',
+        'position_description' => 'json',
+    ];
 
     public function registerMediaCollections(): void
     {
@@ -20,7 +30,7 @@ class Team extends Model implements HasMedia
 
     public function country(): BelongsTo
     {
-        return $this->belongsTo(TeamCountry::class, 'country_id');
+        return $this->belongsTo(Country::class, 'country_id');
     }
 
     /**

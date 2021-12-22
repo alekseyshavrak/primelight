@@ -16,7 +16,7 @@ class NewsResource extends JsonResource
     {
         return [
             'id'            => $this->id,
-            'category'      => $this->category->title,
+            'category'      => NewsResource::make($this->category),
             'cover'         => $this->cover->getUrl(),
             'title'         => $this->title,
             'content'       => $this->flexible,

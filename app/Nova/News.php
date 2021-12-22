@@ -54,7 +54,8 @@ class News extends Resource
 
             Text::make('Заголовок', 'title')
                 ->sortable()
-                ->rules('required', 'max:255'),
+                ->translatable()
+                ->rulesFor('en', ['required']),
 
             Flexible::make('Content', 'content')
                 ->rules('required')

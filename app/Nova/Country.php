@@ -2,27 +2,28 @@
 
 namespace App\Nova;
 
-use Ebess\AdvancedNovaMediaLibrary\Fields\Images;
 use Illuminate\Http\Request;
-use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
+use OptimistDigital\NovaTranslatable\HandlesTranslatable;
 
-class Team extends Resource
+class Country extends Resource
 {
+    use HandlesTranslatable;
+
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = \App\Models\Team::class;
+    public static $model = \App\Models\Country::class;
 
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
      * @var string
      */
-    public static $title = 'name';
+    public static $title = 'title';
 
     /**
      * The columns that should be searched.
@@ -30,7 +31,7 @@ class Team extends Resource
      * @var array
      */
     public static $search = [
-        'id', 'name', 'surname',
+        'id', 'title'
     ];
 
     /**
@@ -44,27 +45,10 @@ class Team extends Resource
         return [
             ID::make()->sortable(),
 
-            Images::make('Фото', 'avatar')
-                ->rules('required'),
-
-            BelongsTo::make('Страна', 'country', Country::class)
-                ->rules('required', 'max:255'),
-
-            Text::make('Имя', 'name')
+            Text::make('Заголовок', 'title')
                 ->sortable()
-                ->translatable(),
-
-            Text::make('Фамилия', 'surname')
-                ->sortable()
-                ->translatable(),
-
-            Text::make('Должность', 'position')
                 ->translatable()
-                ->hideFromIndex(),
-
-            Text::make('Описание должности', 'position_description')
-                ->translatable()
-                ->hideFromIndex(),
+                ->rulesFor('en', ['required']),
         ];
     }
 

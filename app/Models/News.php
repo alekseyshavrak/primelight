@@ -8,22 +8,26 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use Spatie\Translatable\HasTranslations;
 use Whitecube\NovaFlexibleContent\Concerns\HasFlexible;
 use Whitecube\NovaFlexibleContent\Value\FlexibleCast;
 
 class News extends Model implements HasMedia
 {
-    use HasFactory, InteractsWithMedia, HasFlexible;
+    use HasFactory, InteractsWithMedia, HasFlexible, HasTranslations;
+
+    public $translatable = ['title'];
+
+    protected $casts = [
+        'title' => 'json',
+        'publish_at' => 'datetime',
+        'content' => FlexibleCast::class,
+    ];
 
     public function registerMediaCollections(): void
     {
         $this->addMediaCollection('cover')->singleFile();
     }
-
-    protected $casts = [
-        'publish_at' => 'datetime',
-        'content' => FlexibleCast::class,
-    ];
 
     public function category(): BelongsTo
     {
@@ -48,8 +52,8 @@ class News extends Model implements HasMedia
             switch($item->name()) {
                 case 'text_and_title':
                     $data['content'] = [
-                        'title' => $item->title,
-                        'text' => $item->text,
+                        'title' => data_get($item->title, app()->getLocale()),
+                        'text' => data_get($item->text, app()->getLocale()),
                     ];
                 break;
 
@@ -62,7 +66,7 @@ class News extends Model implements HasMedia
 
                 case 'text_only':
                     $data['content'] = [
-                        'text' => $item->text,
+                        'text' => data_get($item->text, app()->getLocale()),
                     ];
                 break;
             }

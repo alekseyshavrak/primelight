@@ -25,3 +25,13 @@ Route::group(['as' => 'news.'], function () {
     Route::get('news', ['as' => 'catalog', 'uses' => \App\Http\Controllers\Api\News\CatalogController::class]);
     Route::get('news/{news}', ['as' => 'show', 'uses' => \App\Http\Controllers\Api\News\ShowController::class]);
 });
+
+# Country
+Route::group(['as' => 'country.'], function () {
+    Route::get('countries', ['as' => 'catalog', 'uses' => \App\Http\Controllers\Api\Country\CatalogController::class]);
+});
+
+# Contact
+Route::group(['as' => 'contact.'], function () {
+    Route::get('contacts', ['as' => 'catalog', 'uses' => \App\Http\Controllers\Api\Contact\CatalogController::class]);
+});

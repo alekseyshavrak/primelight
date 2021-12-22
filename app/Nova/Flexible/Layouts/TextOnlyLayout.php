@@ -15,7 +15,7 @@ class TextOnlyLayout extends Layout
     {
         return [
             Markdown::make('Text', 'text')
-                ->rules(['required'])
+                ->translatable()
         ];
     }
 }

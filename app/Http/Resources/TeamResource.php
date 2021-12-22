@@ -16,7 +16,7 @@ class TeamResource extends JsonResource
     {
         return [
             'id'        => $this->id,
-            'country'   => $this->country->title,
+            'country'   => CountryResource::make($this->country),
             'avatar'    => $this->avatar->getUrl(),
             'name'      => $this->name,
             'surname'   => $this->surname,

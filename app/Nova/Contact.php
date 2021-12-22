@@ -2,18 +2,20 @@
 
 namespace App\Nova;
 
+use Ebess\AdvancedNovaMediaLibrary\Fields\Images;
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
 
-class TeamCountry extends Resource
+class Contact extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = \App\Models\TeamCountry::class;
+    public static $model = \App\Models\Contact::class;
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -28,7 +30,7 @@ class TeamCountry extends Resource
      * @var array
      */
     public static $search = [
-        'id', 'title'
+        'id', 'title', 'address',
     ];
 
     /**
@@ -42,9 +44,25 @@ class TeamCountry extends Resource
         return [
             ID::make()->sortable(),
 
+            BelongsTo::make('Страна', 'country', Country::class)
+                ->rules('required', 'max:255'),
+
             Text::make('Заголовок', 'title')
                 ->sortable()
-                ->rules('required', 'max:255'),
+                ->translatable(),
+
+            Text::make('Email 1', 'email1')
+                ->sortable(),
+
+            Text::make('Email 2', 'email2')
+                ->sortable(),
+
+            Text::make('Телефон', 'phone')
+                ->sortable(),
+
+            Text::make('Адрес', 'address')
+                ->translatable()
+                ->hideFromIndex(),
         ];
     }
 

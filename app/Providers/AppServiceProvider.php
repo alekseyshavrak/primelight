@@ -23,6 +23,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        $lang = request('lang') ?? request()->header('lang');
+
+        if (in_array($lang, ['en', 'ee'])) {
+            app()->setLocale($lang);
+        }
     }
 }

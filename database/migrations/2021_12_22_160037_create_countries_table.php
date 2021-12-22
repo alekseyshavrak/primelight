@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class ChangePositionTeamsTable extends Migration
+class CreateCountriesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,10 @@ class ChangePositionTeamsTable extends Migration
      */
     public function up()
     {
-        Schema::table('teams', function (Blueprint $table) {
-            $table->string('position')->nullable(true)->change();
+        Schema::create('countries', function (Blueprint $table) {
+            $table->id();
+            $table->json('title');
+            $table->timestamps();
         });
     }
 
@@ -25,8 +27,6 @@ class ChangePositionTeamsTable extends Migration
      */
     public function down()
     {
-        Schema::table('teams', function (Blueprint $table) {
-            $table->string('position')->nullable(false)->change();
-        });
+        Schema::dropIfExists('countries');
     }
 }
