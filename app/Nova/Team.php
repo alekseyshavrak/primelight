@@ -59,8 +59,7 @@ class Team extends Resource
                 ->rules('required', 'max:255'),
 
             Text::make('Должность', 'position')
-                ->hideFromIndex()
-                ->rules('required', 'max:255'),
+                ->hideFromIndex(),
 
             Text::make('Описание должности', 'position_description')
                 ->hideFromIndex()
