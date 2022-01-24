@@ -35,3 +35,8 @@ Route::group(['as' => 'country.'], function () {
 Route::group(['as' => 'contact.'], function () {
     Route::get('contacts', ['as' => 'catalog', 'uses' => \App\Http\Controllers\Api\Contact\CatalogController::class]);
 });
+
+# Feedback
+Route::group(['as' => 'feedback.'], function () {
+    Route::post('feedback', ['as' => 'store', 'uses' => \App\Http\Controllers\Api\Feedback\StoreController::class]);
+});
